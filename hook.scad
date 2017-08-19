@@ -31,12 +31,44 @@ distanceToWall = 12;
 
 plateLength = hs+hd+hr;
 
+module bentZylinder(angle, thickness, outerRadius) {
+        // torus
+        rotate_extrude(angle=angle, convexity=10)
+            translate([outerRadius,0,0])
+                circle(thickness, center=true);
+}
+
+module upperPegboardAnchor() {
+            rotate([90,0,0])
+                cylinder(h=pbt, r=hr);
+        
+        
+        translate([-hr,-pbt,0])
+            union() {
+        translate([0,0,0])
+            rotate([0,0,-70])
+                bentZylinder(70, hr, hr);
+    
+    radius = hr;
+    
+    angleCorrectionY = sin(70) * radius;
+    angleCorrectionX = sqrt(pow(radius,2) - pow(angleCorrectionY,2));
+    
+    
+    translate([angleCorrectionX,-angleCorrectionY,0])
+        rotate([0,0,20])
+        translate([-hd/2,0,0])
+        rotate([0,90,0])
+            cylinder(r=hr, h=hd, center=true);
+            }
+}
+
 module PegBoardAnchor() {
     plateThickness = 2;
     
     union() {
         // Upper pegboard anchor to wall
-        translate([hd-min(distanceToWall,10-hr),0,hr])
+        /*translate([hd-min(distanceToWall,10-hr),0,hr])
             rotate([0,180,180])
                 //difference() {
                     // torus
@@ -47,6 +79,10 @@ module PegBoardAnchor() {
                     //translate([hr,0,0])
                     //    cube(hr);
                 //}
+        */
+    
+        translate([hd,0,hr])
+            upperPegboardAnchor();
         
         // The shank of the hook
         cube([plateLength,plateThickness,hd]);
@@ -54,7 +90,7 @@ module PegBoardAnchor() {
         // Lower pegboard anchor to wall
         translate([hs+hd,0,hr])
             rotate([0,-90,90])
-                cylinder(h=min(distanceToWall+pbt, 10), r=hr);
+                cylinder(h=min(distanceToWall/2+pbt, 10), r=hr);
 
     }
 }
