@@ -1,12 +1,11 @@
+include <utils.scad>;
+
 module PegBoardAnchor() {
     plateThickness = 2;
     
     union() {
         translate([hd,0,hr])
             upperPegboardAnchor();
-        
-        // The shank of the hook
-        cube([plateLength,plateThickness,hd]);
 
         // Lower pegboard anchor to wall
         translate([hs+hd,0,hr])
