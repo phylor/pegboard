@@ -4,8 +4,7 @@ include <anchors.scad>;
 
 // Variables to configure:
 width = 34;
-depth = 34;
-wall = true;
+depth = 23;
 // End configuration
 
 requiredPegs = ceil((width-hd) / hs + 1);
@@ -17,14 +16,8 @@ translate([0,-depth,0])
     cube([actualWidth, depth, plateThickness]);
     
 // walls
-if(wall) {
-    translate([0, -depth+plateThickness, plateThickness])
-        cube([plateThickness, depth-plateThickness, 10]);
-    translate([width-plateThickness, -depth+plateThickness, plateThickness])
-        cube([plateThickness, depth-plateThickness, 10]);
     translate([0, -depth, plateThickness])
-        cube([width, plateThickness, 10]);
-}
+        cube([width, plateThickness, hs+hd-plateThickness]);
 
 // Back wall
 cube([actualWidth, plateThickness, hs+hd]);

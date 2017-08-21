@@ -3,8 +3,8 @@ include <anchors.scad>;
 
 // Variables to configure:
 spacingBetweenHoles = 2;
-holeDepth = 17;
-holeWidth = 34;
+holeDepth = 30;
+holeWidth = 30;
 // End configuration
 
 plateHeight = hs+hd;
